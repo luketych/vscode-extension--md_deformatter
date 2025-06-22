@@ -1,6 +1,6 @@
 {
-  "name": "markdown-simplifier",
-  "displayName": "Markdown Simplifier for LLM Ingestion",
+  "name": "markdown-deformatter",
+  "displayName": "Markdown Deformatter - for LLM Ingestion",
   "description": "Strip Markdown formatting from .md files to create clean .txt files for better LLM processing",
   "version": "0.0.3",
   "publisher": "luketych",
@@ -19,43 +19,43 @@
   "contributes": {
     "commands": [
       {
-        "command": "markdown-simplifier.convertFiles",
-        "title": "Markdown Simplifier: Convert MD to TXT"
+        "command": "markdown-deformatter.convertFiles",
+        "title": "Markdown Deformatter: Convert MD to TXT"
       },
       {
-        "command": "markdown-simplifier.toggleAutoConvert",
-        "title": "Markdown Simplifier: Toggle Auto-Convert"
+        "command": "markdown-deformatter.toggleAutoConvert",
+        "title": "Markdown Deformatter: Toggle Auto-Convert"
       }
     ],
     "configuration": {
-      "title": "Markdown Simplifier",
+      "title": "Markdown Deformatter",
       "properties": {
-        "markdownSimplifier.sourceDirectory": {
+        "markdownDeformatter.sourceDirectory": {
           "type": "string",
           "default": "",
           "description": "Default source directory for Markdown files"
         },
-        "markdownSimplifier.outputDirectory": {
+        "markdownDeformatter.outputDirectory": {
           "type": "string",
           "default": "",
           "description": "Default output directory for converted text files"
         },
-        "markdownSimplifier.previewChanges": {
+        "markdownDeformatter.previewChanges": {
           "type": "boolean",
           "default": false,
           "description": "Preview changes before converting files"
         },
-        "markdownSimplifier.watchedDirectory": {
+        "markdownDeformatter.watchedDirectory": {
           "type": "string",
           "default": "descriptions",
           "description": "Directory to watch for automatic markdown conversion"
         },
-        "markdownSimplifier.autoConvertEnabled": {
+        "markdownDeformatter.autoConvertEnabled": {
           "type": "boolean",
           "default": false,
           "description": "Enable automatic conversion of markdown files when created or modified"
         },
-        "markdownSimplifier.autoConvertOutputDirectory": {
+        "markdownDeformatter.autoConvertOutputDirectory": {
           "type": "string",
           "default": "",
           "description": "Output directory for auto-converted files (defaults to same directory if empty)"

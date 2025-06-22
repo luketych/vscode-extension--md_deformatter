@@ -1,4 +1,4 @@
-# Markdown Simplifier VSCode Extension - Development Milestones
+# Markdown Deformatter VSCode Extension - Development Milestones
 
 ## 🚀 Phase 1: Foundation (High Priority)
 

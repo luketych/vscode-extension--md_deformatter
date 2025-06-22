@@ -8,16 +8,16 @@ const converter = new MarkdownConverter();
 const debounceTimers = new Map<string, NodeJS.Timeout>();
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Markdown Simplifier extension is now active!');
+    console.log('Markdown Deformatter extension is now active!');
 
     // Register the main convert command
-    let convertCommand = vscode.commands.registerCommand('markdown-simplifier.convertFiles', async () => {
+    let convertCommand = vscode.commands.registerCommand('markdown-deformatter.convertFiles', async () => {
         await converter.convertFiles();
     });
 
     // Register the toggle auto-convert command
-    let toggleCommand = vscode.commands.registerCommand('markdown-simplifier.toggleAutoConvert', async () => {
-        const config = vscode.workspace.getConfiguration('markdownSimplifier');
+    let toggleCommand = vscode.commands.registerCommand('markdown-deformatter.toggleAutoConvert', async () => {
+        const config = vscode.workspace.getConfiguration('markdownDeformatter');
         const currentState = config.get<boolean>('autoConvertEnabled', false);
         await config.update('autoConvertEnabled', !currentState, vscode.ConfigurationTarget.Global);
         
@@ -36,21 +36,21 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(toggleCommand);
 
     // Check if auto-convert is enabled on startup
-    const config = vscode.workspace.getConfiguration('markdownSimplifier');
+    const config = vscode.workspace.getConfiguration('markdownDeformatter');
     if (config.get<boolean>('autoConvertEnabled', false)) {
         startFileWatcher(context);
     }
 
     // Listen for configuration changes
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
-        if (e.affectsConfiguration('markdownSimplifier.autoConvertEnabled')) {
-            const config = vscode.workspace.getConfiguration('markdownSimplifier');
+        if (e.affectsConfiguration('markdownDeformatter.autoConvertEnabled')) {
+            const config = vscode.workspace.getConfiguration('markdownDeformatter');
             if (config.get<boolean>('autoConvertEnabled', false)) {
                 startFileWatcher(context);
             } else {
                 stopFileWatcher();
             }
-        } else if (e.affectsConfiguration('markdownSimplifier.watchedDirectory')) {
+        } else if (e.affectsConfiguration('markdownDeformatter.watchedDirectory')) {
             // Restart watcher if watched directory changes
             if (autoConvertEnabled) {
                 stopFileWatcher();
@@ -63,7 +63,7 @@ export function activate(context: vscode.ExtensionContext) {
 function startFileWatcher(context: vscode.ExtensionContext) {
     stopFileWatcher(); // Stop any existing watcher first
 
-    const config = vscode.workspace.getConfiguration('markdownSimplifier');
+    const config = vscode.workspace.getConfiguration('markdownDeformatter');
     const watchedDir = config.get<string>('watchedDirectory', 'descriptions');
     
     // Create glob pattern for the watched directory
@@ -126,11 +126,24 @@ function handleFileChange(filePath: string, changeType: 'created' | 'changed') {
     const timer = setTimeout(async () => {
         debounceTimers.delete(filePath);
         
-        const config = vscode.workspace.getConfiguration('markdownSimplifier');
+        const config = vscode.workspace.getConfiguration('markdownDeformatter');
         const outputDir = config.get<string>('autoConvertOutputDirectory', '');
+        const watchedDir = config.get<string>('watchedDirectory', 'descriptions');
         
-        // Convert the file
-        await converter.convertSingleFile(filePath, outputDir || undefined);
+        // Determine the source directory for preserving folder structure
+        const workspaceFolders = vscode.workspace.workspaceFolders;
+        let sourceDir: string | undefined;
+        
+        if (workspaceFolders && workspaceFolders.length > 0) {
+            if (path.isAbsolute(watchedDir)) {
+                sourceDir = watchedDir;
+            } else {
+                sourceDir = path.join(workspaceFolders[0].uri.fsPath, watchedDir);
+            }
+        }
+        
+        // Convert the file with source directory to preserve folder structure
+        await converter.convertSingleFile(filePath, outputDir || undefined, sourceDir);
     }, 500); // 500ms debounce delay
 
     debounceTimers.set(filePath, timer);
@@ -138,5 +151,5 @@ function handleFileChange(filePath: string, changeType: 'created' | 'changed') {
 
 export function deactivate() {
     stopFileWatcher();
-    console.log('Markdown Simplifier extension is now deactivated');
+    console.log('Markdown Deformatter extension is now deactivated');
 }

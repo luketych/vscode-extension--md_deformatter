@@ -1,4 +1,4 @@
-# Markdown Simplifier for LLM Ingestion
+# Markdown Deformatter for LLM Ingestion
 
 This VS Code extension strips Markdown formatting from `.md` files to create clean `.txt` files, making them easier to process by Large Language Models (LLMs).
 
@@ -22,7 +22,7 @@ This method is ideal for testing and development.
 3.  **Start the debugger**: Press `F5` to open a new **Extension Development Host** window. This window runs a temporary instance of VS Code with your extension loaded.
 4.  **Run the command**:
     -   In the Extension Development Host window, open the Command Palette (`Cmd+Shift+P` on macOS, `Ctrl+Shift+P` on Windows).
-    -   Type `Markdown Simplifier: Convert MD to TXT` and press `Enter`.
+    -   Type `Markdown Deformatter: Convert MD to TXT` and press `Enter`.
     -   Follow the prompts to select your source and output directories.
 
 ### 2. Packaging and Installing the Extension (Manual)
@@ -39,7 +39,7 @@ To use this extension in your main VS Code editor without publishing it, you can
         ```bash
         vsce package
         ```
-    -   This will create a file named `markdown-simplifier-0.0.1.vsix` (the version may vary).
+    -   This will create a file named `markdown-deformatter-0.0.1.vsix` (the version may vary).
 
 3.  **Install the `.vsix` file**:
     -   Open your main VS Code window.
@@ -47,7 +47,7 @@ To use this extension in your main VS Code editor without publishing it, you can
     -   Click the **...** menu in the top-right corner of the Extensions view.
     -   Select **Install from VSIX...** and choose the `.vsix` file you just created.
 
-4.  **Use the installed extension**: Once installed, you can run the `Markdown Simplifier: Convert MD to TXT` command from the Command Palette in any of your projects.
+4.  **Use the installed extension**: Once installed, you can run the `Markdown Deformatter: Convert MD to TXT` command from the Command Palette in any of your projects.
 
 ### 3. Publishing to the VS Code Marketplace
 
@@ -97,7 +97,7 @@ If successful, your extension will be available on the Marketplace within a few 
 You can customize the extension's behavior through the VS Code settings.
 
 1.  Open **Settings** (`Cmd+,` on macOS, `Ctrl+,` on Windows).
-2.  Search for **"Markdown Simplifier"**.
+2.  Search for **"Markdown Deformatter"**.
 
 ### Available Settings
 

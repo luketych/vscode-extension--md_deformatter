@@ -1,4 +1,4 @@
-# 🧠 VSCode Extension: Markdown Simplifier for LLM Ingestion
+# 🧠 VSCode Extension: Markdown Deformatter for LLM Ingestion
 
 ## 📌 Overview
 
@@ -89,9 +89,9 @@ Benefits
 
 ```jsonc
 {
-  "markdownSimplifier.sourceDirectory": "./docs",
-  "markdownSimplifier.outputDirectory": "./output",
-  "markdownSimplifier.previewChanges": true
+  "markdownDeformatter.sourceDirectory": "./docs",
+  "markdownDeformatter.outputDirectory": "./output",
+  "markdownDeformatter.previewChanges": true
 }
 ```
 

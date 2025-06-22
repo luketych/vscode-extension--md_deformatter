@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a VSCode extension project called "Markdown Simplifier for LLM Ingestion" that strips Markdown formatting from `.md` files and outputs clean `.txt` files for better LLM processing.
+This is a VSCode extension project called "Markdown Deformatter for LLM Ingestion" that strips Markdown formatting from `.md` files and outputs clean `.txt` files for better LLM processing.
 
 ## Key Development Tasks
 

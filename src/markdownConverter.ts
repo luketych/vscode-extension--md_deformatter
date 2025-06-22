@@ -30,7 +30,7 @@ export class MarkdownConverter {
             const outputPath = outputUri[0].fsPath;
 
             // Get configuration
-            const config = vscode.workspace.getConfiguration('markdownSimplifier');
+            const config = vscode.workspace.getConfiguration('markdownDeformatter');
             const previewMode = config.get<boolean>('previewChanges', false);
 
             // Process files with progress
@@ -109,15 +109,22 @@ export class MarkdownConverter {
         });
     }
 
-    async convertSingleFile(mdFilePath: string, outputDirectory?: string): Promise<void> {
+    async convertSingleFile(mdFilePath: string, outputDirectory?: string, sourceDirectory?: string): Promise<void> {
         try {
             const content = await this.fileHandler.readFile(mdFilePath);
             const processedContent = this.markdownProcessor.stripMarkdown(content);
             
             let outputFile: string;
             if (outputDirectory) {
-                const fileName = path.basename(mdFilePath).replace(/\.md$/, '.txt');
-                outputFile = path.join(outputDirectory, fileName);
+                if (sourceDirectory) {
+                    // Preserve folder structure when source directory is provided
+                    const relativePath = path.relative(sourceDirectory, mdFilePath);
+                    outputFile = path.join(outputDirectory, relativePath.replace(/\.md$/, '.txt'));
+                } else {
+                    // Just use filename if no source directory provided
+                    const fileName = path.basename(mdFilePath).replace(/\.md$/, '.txt');
+                    outputFile = path.join(outputDirectory, fileName);
+                }
             } else {
                 // Save in the same directory as the source file
                 outputFile = mdFilePath.replace(/\.md$/, '.txt');
