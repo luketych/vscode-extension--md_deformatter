@@ -3,10 +3,10 @@
   "displayName": "Markdown Simplifier for LLM Ingestion",
   "description": "Strip Markdown formatting from .md files to create clean .txt files for better LLM processing",
   "version": "0.0.1",
-  "publisher": "your-publisher-name",
+  "publisher": "luketych",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/your-repo.git"
+    "url": "https://github.com/luketych/vscode-extension--md_deformatter.git"
   },
   "icon": "images/icon.png",
   "engines": {
