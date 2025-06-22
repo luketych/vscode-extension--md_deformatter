@@ -21,6 +21,10 @@
       {
         "command": "markdown-simplifier.convertFiles",
         "title": "Markdown Simplifier: Convert MD to TXT"
+      },
+      {
+        "command": "markdown-simplifier.toggleAutoConvert",
+        "title": "Markdown Simplifier: Toggle Auto-Convert"
       }
     ],
     "configuration": {
@@ -40,6 +44,21 @@
           "type": "boolean",
           "default": false,
           "description": "Preview changes before converting files"
+        },
+        "markdownSimplifier.watchedDirectory": {
+          "type": "string",
+          "default": "descriptions",
+          "description": "Directory to watch for automatic markdown conversion"
+        },
+        "markdownSimplifier.autoConvertEnabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable automatic conversion of markdown files when created or modified"
+        },
+        "markdownSimplifier.autoConvertOutputDirectory": {
+          "type": "string",
+          "default": "",
+          "description": "Output directory for auto-converted files (defaults to same directory if empty)"
         }
       }
     }

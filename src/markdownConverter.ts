@@ -108,4 +108,33 @@ export class MarkdownConverter {
             title: prompt
         });
     }
+
+    async convertSingleFile(mdFilePath: string, outputDirectory?: string): Promise<void> {
+        try {
+            const content = await this.fileHandler.readFile(mdFilePath);
+            const processedContent = this.markdownProcessor.stripMarkdown(content);
+            
+            let outputFile: string;
+            if (outputDirectory) {
+                const fileName = path.basename(mdFilePath).replace(/\.md$/, '.txt');
+                outputFile = path.join(outputDirectory, fileName);
+            } else {
+                // Save in the same directory as the source file
+                outputFile = mdFilePath.replace(/\.md$/, '.txt');
+            }
+
+            await this.fileHandler.writeFile(outputFile, processedContent);
+            
+            // Show subtle notification in status bar instead of modal
+            const statusBarMessage = vscode.window.setStatusBarMessage(
+                `✓ Converted ${path.basename(mdFilePath)} to ${path.basename(outputFile)}`
+            );
+            
+            // Clear the status bar message after 3 seconds
+            setTimeout(() => statusBarMessage.dispose(), 3000);
+        } catch (error) {
+            console.error(`Error converting ${mdFilePath}:`, error);
+            vscode.window.showErrorMessage(`Failed to convert ${path.basename(mdFilePath)}: ${error}`);
+        }
+    }
 }
