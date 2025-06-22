@@ -2,7 +2,7 @@
   "name": "markdown-simplifier",
   "displayName": "Markdown Simplifier for LLM Ingestion",
   "description": "Strip Markdown formatting from .md files to create clean .txt files for better LLM processing",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "luketych",
   "repository": {
     "type": "git",
